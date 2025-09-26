@@ -1,19 +1,50 @@
 from LED_IR_Control.Send_CMD import send_cmd
+    
+
+def run_remote():
+    # power simply denotes the last button pressed -> right now we dont have any state tracking
+    current_state = ("power", "off") # (led, picture)
+
+
+
+
+
+
+
+
 
 
 def change_state(current_state, new_state):
     if current_state == new_state:
         return current_state
     else:
-        if (new_state not in overlapping_cmds):
-            if (current_state in overlapping_cmds):
-                if (overlapping_cmds[0] == current_state):
-                    send_cmd(rgb_cmds[new_state])
+        if (current_state[1] == new_state[1]):
+            led_overlap = overlapping_cmds.get(new_state[0])
+            picture_overlap = overlapping_cmds.get(new_state[1])
+            if led_overlap and picture_overlap:
+                if current_state[0] == picture_overlap: # same command
+                    send_cmd(rgb_cmds[new_state[0]]) # will be fine, wont change
                 else:
-                    send_cmd(picture_cmds[new_state])
+                    raise Exception("Overlapping commands are not allowed")
+            elif led_overlap:
+                send_cmd(rgb_cmds[new_state[0]]) # change to (new_state, altered_state)
+                send_cmd(picture_cmds[new_state[1]]) # change to (new_state, old_state)
             else:
-
-    # TODO: Think of all possible overlapping cases and states
+                send_cmd(rgb_cmds[new_state[0]]) # change to (new_state, old_state)
+        else:
+            led_overlap = overlapping_cmds.get(new_state[0])
+            picture_overlap = overlapping_cmds.get(new_state[1])
+            if led_overlap and picture_overlap:
+                if current_state[1] == led_overlap: # same command
+                    send_cmd(rgb_cmds[new_state[0]]) # will be fine, wont change
+                else:
+                    raise Exception("Overlapping commands are not allowed")
+            elif picture_overlap: # we change picture with led command
+                send_cmd(picture_cmds[new_state[1]]) # change to (altered_state, new_state)
+                send_cmd(rgb_cmds[new_state[0]]) # change to (old_state, new_state)
+            else:
+                send_cmd(picture_cmds[new_state[1]]) # change to (old_state, new_state)
+            
 
 
 rgb_cmds = {
@@ -83,22 +114,21 @@ picture_turn_on_cmds = {
 }
 
 
-
 overlapping_cmds = {
-    "white": ("white", "static"),
-    "static": ("white", "static"),
-    "blue": ("blue", "on"),
-    "on": ("blue", "on"),
-    "white-light": ("white-light", "fade"),
-    "fade": ("white-light", "fade"),
-    "power": ("power", "auto_day"),
-    "auto_day": ("power", "auto_day"),
-    "more-green": ("more-green", "warm"),
-    "warm": ("more-green", "warm"),
-    "more-blue": ("more-blue", "darker"),
-    "darker": ("more-blue", "darker"),
-    "yellow": ("yellow", "15-min"),
-    "15-min": ("yellow", "15-min"),
+    "white": "static",
+    "static": "white",
+    "blue": "on",
+    "on": "blue",
+    "white-light": "fade",
+    "fade": "white-light",
+    "power": "auto_day",
+    "auto_day": "power",
+    "more-green": "warm",
+    "warm": "more-green",
+    "more-blue": "darker",
+    "darker": "more-blue",
+    "yellow": "15-min",
+    "15-min": "yellow",
 }
 
 
