@@ -156,3 +156,16 @@ Brighter: addr=0x00  cmd=0x0D  code16=0x000D  code32=0x00FF0DF2
 ("more-green", "warm"),
 ("more-blue", "darker"),
 ("yellow", "15-min"),
+
+## 10/6
+
+Created Web Dashboard for WEB Remote
+Designed specifically for 8 in display screen / quick web
+changed IR Virtual_remote into a class we can instatiate with a GPIO Pin 
+Plan to allow both, or 1, or custom control type with address map
+
+![initial](Web_Init.png)
+
+![final](Web_Final.png)
+
+added state to remote, remote class sends cmd. kept code if we want same transmitter.

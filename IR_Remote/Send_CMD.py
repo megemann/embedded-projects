@@ -95,6 +95,7 @@ def send_cmd(cmd: int,
       carrier: carrier frequency in Hz (default 38 kHz)
       pi: optional existing pigpio.pi() instance to reuse
     """
+
     own_pi = False
     if pi is None:
         pi = pigpio.pi()
