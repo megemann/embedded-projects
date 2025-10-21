@@ -169,3 +169,29 @@ Plan to allow both, or 1, or custom control type with address map
 ![final](Web_Final.png)
 
 added state to remote, remote class sends cmd. kept code if we want same transmitter.
+
+## 10-12 approx
+- add led IR arduino code
+- Attach two way system for each side
+- Send NEC signals 
+- Reference pictures for exact date
+
+
+## 10-19
+
+- Develop Mosquitto server for arduino connection to laptop
+- Test using laptop as a broker and host, then use it to send command to connected arduino
+- Code in SendNEC32 signal
+``` cpp
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <IRremote.hpp>  // Arduino-IRremote v4.x
+```
+
+## 10-20
+
+- Add servo demo code for mini 9g servo
+- Take measurements for mounting
+- Include notebook drawings
+- Wall mounted by command strips
+- 3d print brackets by servo
