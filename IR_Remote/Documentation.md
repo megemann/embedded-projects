@@ -195,3 +195,14 @@ added state to remote, remote class sends cmd. kept code if we want same transmi
 - Include notebook drawings
 - Wall mounted by command strips
 - 3d print brackets by servo
+
+## 10-21
+- Start ideas for designing
+- Note we will need external power source / capacitors for later servo control
+- Cut USB cord and attach to ground
+- for prototyping we do short test with ESP32 pins
+- Planned wall mount ~height of picture lights
+- Get drawings of board and servo - CAD-Designs folder
+
+- model FIRST PROTOTYPE OF MOUNTING BOARD!
+- ![Prototype_1](./CAD-Designing/Wall_Mount_Prototype_1.png)
